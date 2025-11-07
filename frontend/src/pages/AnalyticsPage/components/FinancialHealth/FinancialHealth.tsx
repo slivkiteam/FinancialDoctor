@@ -1,6 +1,6 @@
+import { Card } from "@/components/ui/Card/Card";
 import { Label, Pie, PieChart, ResponsiveContainer } from "recharts";
 import s from "./FinancialHealth.module.css";
-import { Card } from "@/components/ui/Card/Card";
 
 const data = [
   { name: "Group A", value: 75, fill: "rgba(0, 201, 81, 1)" },
@@ -28,6 +28,8 @@ const MyLabel = () => {
 
 const MyPie = () => (
   <Pie
+    startAngle={90}
+    endAngle={-270}
     data={data}
     dataKey="value"
     nameKey="name"

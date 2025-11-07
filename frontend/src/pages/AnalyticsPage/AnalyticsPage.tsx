@@ -3,6 +3,9 @@ import s from "./Analytics.module.css";
 import { DayAdvice } from "./components/DayAdvice/DayAdvice";
 import { Diagnose } from "./components/Diagnose/Diagnose";
 import { FinancialHealth } from "./components/FinancialHealth/FinancialHealth";
+import { Plan } from "./components/Plan/Plan";
+import { SpendCategory } from "./components/SpendCategory/SpendCategory";
+import { Revenue } from "./components/Revenue/Revenue";
 
 export const AnalyticsPage = () => {
   return (
@@ -12,9 +15,12 @@ export const AnalyticsPage = () => {
           <FinancialHealth />
           <Diagnose />
         </div>
-        <div className={s.buttonContainer}>
-          <DayAdvice />
+        <div className={s.financialHealthContainer}>
+          <SpendCategory />
+          <Revenue />
         </div>
+          <DayAdvice />
+          <Plan />
       </div>
     </AuthenticatedLayout>
   );

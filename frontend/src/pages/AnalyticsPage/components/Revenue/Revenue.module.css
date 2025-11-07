@@ -1,0 +1,5 @@
+.card {
+    display: flex;
+    flex: 1;
+    background: linear-gradient(56.72deg, rgba(191, 222, 255, 0.42) 0%, rgba(185, 251, 210, 0.42) 100%);
+}

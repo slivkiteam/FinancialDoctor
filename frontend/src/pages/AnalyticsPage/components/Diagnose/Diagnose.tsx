@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/Button/Button";
-import tube from "@assets/diagnose/tube.svg";
+import tube from "@assets/analytics-page/diagnose/tube.svg";
 import s from "./Diagnose.module.css";
 import { Card } from "@/components/ui/Card/Card";
 

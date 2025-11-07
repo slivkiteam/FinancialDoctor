@@ -8,7 +8,9 @@
 
 .financialHealthContainer {
   display: flex;
+  flex-wrap: wrap;
   gap: 40px;
-  flex: 1;
+  min-width: 0;
+  flex: 1 1 calc(50% - 40px);
   width: 100%;
 }

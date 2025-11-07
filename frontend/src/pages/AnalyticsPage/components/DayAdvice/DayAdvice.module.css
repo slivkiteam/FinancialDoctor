@@ -1,0 +1,32 @@
+.dayAdvice {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: linear-gradient(
+    134.86deg,
+    rgba(191, 222, 255, 0.42) 0%,
+    rgba(185, 251, 210, 0.42) 100%
+  );
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.image {
+  width: 30px;
+  height: 30px;
+}
+
+.description {
+  display: flex;
+  font-weight: 400;
+  font-size: 14px;
+}

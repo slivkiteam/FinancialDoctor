@@ -1,0 +1,36 @@
+.plan {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.image {
+  width: 60px;
+  height: 60px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.recommendations {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.recommendationText{
+    display: flex;
+}
+
+.recommendationList{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
