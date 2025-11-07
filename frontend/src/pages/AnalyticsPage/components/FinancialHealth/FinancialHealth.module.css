@@ -1,0 +1,40 @@
+.financialHealth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  flex: 1;
+  max-width: 50%;
+  background: linear-gradient(
+    134.86deg,
+    rgba(191, 222, 255, 0.42) 0%,
+    rgba(185, 251, 210, 0.42) 100%
+  );
+  border: 1px solid var(--chart-area-blue-stroke, rgba(142, 197, 255, 1));
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 30px;
+  text-align: center;
+}
+
+.pieChart {
+  aspect-ratio: 1;
+}
+
+.label {
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

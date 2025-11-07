@@ -1,0 +1,12 @@
+.sidebar {
+  padding: 40px 35px;
+  width: 20vw;
+  max-width: 500px;
+  min-width: 400px;
+  border-right: 1px solid rgba(229, 229, 229, 1);
+}
+.sidebarList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

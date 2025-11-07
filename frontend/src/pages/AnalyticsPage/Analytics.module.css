@@ -1,0 +1,14 @@
+.analyticsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 40px;
+  width: 100%;
+}
+
+.financialHealthContainer {
+  display: flex;
+  gap: 40px;
+  flex: 1;
+  width: 100%;
+}

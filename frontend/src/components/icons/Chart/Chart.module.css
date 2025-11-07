@@ -1,0 +1,5 @@
+.chart {
+  min-width: 24px;
+  min-height: 24px;
+  transition: stroke 0.3s ease;
+}

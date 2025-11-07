@@ -1,0 +1,30 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--chart-area-blue-stroke, rgba(142, 197, 255, 1));
+  border-radius: 8px;
+  gap: 20px;
+  width: 268px;
+  height: 279px;
+}
+
+.image {
+  width: 63px;
+  height: 63px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 16px;
+  text-align: center;
+}

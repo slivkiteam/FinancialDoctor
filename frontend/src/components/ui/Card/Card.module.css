@@ -1,0 +1,5 @@
+.card {
+  border: 1px solid var(--chart-area-blue-stroke, rgba(142, 197, 255, 1));
+  border-radius: 8px;
+  padding: 30px;
+}

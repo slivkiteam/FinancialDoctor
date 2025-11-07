@@ -1,0 +1,38 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+  width: 100%;
+  color: white;
+  position: relative;
+}
+
+.logoRights {
+  display: flex;
+  flex-direction: column;
+}
+
+.rightsText {
+  font-weight: 500;
+  font-size: 12px;
+  text-align: center;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 12px;
+  align-items: start;
+}
+
+.socialLinks img {
+  width: 24px;
+  height: 24px;
+}
+
+.supportLink {
+  cursor: pointer;
+  text-decoration: underline;
+  position: absolute;
+  right: 50%;
+  transform: translate(50%);
+}
