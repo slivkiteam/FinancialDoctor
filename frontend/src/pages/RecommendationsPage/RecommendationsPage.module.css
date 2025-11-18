@@ -1,0 +1,65 @@
+.recommendations {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  gap: 40px;
+  width: 100%;
+}
+
+.diagnose {
+  max-width: 100%;
+  width: 100%;
+}
+
+.stats {
+  display: flex;
+  width: 100%;
+  gap: 50px;
+  justify-content: center;
+  grid-column: 1/4;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  padding: 30px;
+  height: 30vw;
+}
+
+.chart {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 4fr 1fr;
+  height: 100%;
+}
+
+.simpleChart {
+  height: 100%;
+  grid-row: 2/3;
+}
+
+.lineChart {
+  grid-row: 2/3;
+}
+
+.description {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 8px;
+  text-align: center;
+  height: max-content;
+}
+
+.analyticsCards {
+  display: flex;
+  gap: 20px;
+}
+
+.cardTitle {
+  font-weight: 600;
+  font-size: 30px;
+}

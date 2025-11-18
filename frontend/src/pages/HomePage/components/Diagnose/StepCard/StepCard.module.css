@@ -7,6 +7,7 @@
 }
 
 .ellips {
+  z-index: 2;
   width: 120px;
   height: 120px;
   display: flex;
@@ -14,11 +15,11 @@
   justify-content: center;
   border-radius: 50%;
 }
-
 .stepNumber {
   font-weight: 600;
   font-size: 48px;
   text-align: center;
+  color: white;
 }
 
 .title {

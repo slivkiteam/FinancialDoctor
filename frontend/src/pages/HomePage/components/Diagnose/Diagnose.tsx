@@ -9,7 +9,7 @@ export const Diagnose = () => {
     <BlockContainer background={DIAGNOSE_BACKGROUND_COLOR}>
       <div className={s.stepsBlockContainer}>
         <h2 className={s.title}>
-          Получи свой финансовый "диагноз и план лечения" в 3 этапа
+          Получи свой финансовый диагноз и план лечения в 3 этапа
         </h2>
         <div className={s.stepsContainer}>
           {steps.map((step) => (

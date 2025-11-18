@@ -1,0 +1,12 @@
+.column {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 10px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.columnTitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+}

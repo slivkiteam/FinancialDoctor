@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useEffect, useMemo } from "react";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import {
@@ -27,6 +27,10 @@ export const BaseLayout = memo(({
   const finalHeaderStyles = useMemo(() => {
     return { ...BASE_HEADER_STYLES, ...headerStyles };
   }, [headerStyles]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

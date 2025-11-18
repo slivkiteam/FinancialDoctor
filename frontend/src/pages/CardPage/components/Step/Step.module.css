@@ -1,0 +1,40 @@
+.step {
+  display: flex;
+  height: max-content;
+  align-items: center;
+  position: relative;
+  flex-grow: 1;
+  font-size: 500;
+  gap: 15px;
+  width: max-content;
+}
+
+.stepNotLast::after {
+  content: "";
+  flex-grow: 1;
+  height: 2px;
+  background: var(--neutral-300, rgba(189, 189, 189, 1));
+  margin: 0 15px;
+}
+
+.circle {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  font-weight: 600;
+  font-size: 20px;
+  background: var(--neutral-500, rgba(115, 115, 115, 1));
+}
+
+.circleActive {
+  background: var(--chart-static-blue-4, rgba(20, 71, 230, 1));
+}
+
+.stepsDescriptionActive {
+  color: var(--chart-static-blue-4, rgba(20, 71, 230, 1));
+}

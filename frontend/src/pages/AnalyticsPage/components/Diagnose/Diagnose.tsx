@@ -1,20 +1,9 @@
-import { Button } from "@/components/ui/Button/Button";
-import tube from "@assets/analytics-page/diagnose/tube.svg";
+import { DiagnoseLayout } from "@/components/layout/DiagnoseLayout/DiagnoseLayout";
 import s from "./Diagnose.module.css";
-import { Card } from "@/components/ui/Card/Card";
 
 export const Diagnose = () => {
   return (
-    <Card className={s.diagnose}>
-      <div className={s.titleContainer}>
-        <img src={tube} alt="Пробирка" />
-        <h3 className={s.title}>Ваш диагноз</h3>
-      </div>
-      <div className={s.buttonContainer}>
-        <Button>Обновлено Вчера</Button>
-      </div>
-
-      <h4 className={s.diagnosis}>Рассеянный спендер</h4>
+    <DiagnoseLayout diagnosis="Рассеянный спендер">
       <p className={s.description}>
         Более 35% доходов уходит на сиюминутные удовольствия. Финансовые цели
         откладываются, в конце месяца приходится себя ограничивать.
@@ -27,6 +16,6 @@ export const Diagnose = () => {
           <li className={s.keyFeatureItem}>Невозможность накопления</li>
         </ul>
       </div>
-    </Card>
+    </DiagnoseLayout>
   );
 };

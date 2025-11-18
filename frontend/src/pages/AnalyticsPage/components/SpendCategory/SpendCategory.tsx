@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/Card/Card";
 import { Pie, PieChart, ResponsiveContainer } from "recharts";
-import { ChartLayout } from "../ui/ChartLayout/ChartLayout";
+import { ChartLayout } from "../../../../components/layout/ChartLayout/ChartLayout";
 import s from "./SpendCategory.module.css";
 
 const INITIAL_DATA = [
@@ -41,7 +41,11 @@ export const SpendCategory = () => {
     <Card className={s.card}>
       <ChartLayout>
         <h3>Категории трат</h3>
-        <ResponsiveContainer width="100%" height={300} className={s.chartContainer}>
+        <ResponsiveContainer
+          width="100%"
+          height={300}
+          className={s.chartContainer}
+        >
           <TwoLevelPieChart />
         </ResponsiveContainer>
         <ul>

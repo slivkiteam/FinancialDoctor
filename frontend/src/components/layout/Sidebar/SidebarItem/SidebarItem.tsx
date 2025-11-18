@@ -16,7 +16,6 @@ export const SidebarItem = ({ image, text, link }: SidebarItemProps) => {
   const location = useLocation();
   const isActive = location.pathname === link;
   const [isHovered, setIsHovered] = useState(false);
-
   return (
     <li
       onMouseEnter={() => setIsHovered(true)}

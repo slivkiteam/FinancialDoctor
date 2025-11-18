@@ -1,18 +1,20 @@
-import React, { memo } from "react";
+import { memo, useEffect } from "react";
 import { BaseLayout } from "../BaseLayout/BaseLayout";
 import { Sidebar } from "../Sidebar/Sidebar";
 import s from './AuthenticatedLayout.module.css'
+import { Outlet } from "react-router-dom";
 
-interface AuthenticatedLayoutProps {
-  children: React.ReactNode;
-}
-
-export const AuthenticatedLayout = memo(({ children }: AuthenticatedLayoutProps) => {
+export const AuthenticatedLayout = memo(() => {
+  console.log("AuthenticatedLayout rendered");
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
     <BaseLayout>
       <div className={s.authenticatedLayout}>
         <Sidebar />
-        {children}
+        <Outlet/>
       </div>
     </BaseLayout>
   );

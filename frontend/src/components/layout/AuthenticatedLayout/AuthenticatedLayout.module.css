@@ -1,4 +1,5 @@
 .authenticatedLayout {
   display: flex;
   position: sticky;
+  min-height: 89vh;
 }

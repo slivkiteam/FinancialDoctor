@@ -1,0 +1,61 @@
+.diagnose {
+  flex: 1;
+  background: linear-gradient(
+    56.72deg,
+    rgba(191, 222, 255, 0.42) 0%,
+    rgba(185, 251, 210, 0.42) 100%
+  );
+  display: grid;
+  grid-template-columns: 40% 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 36px;
+  max-width: 50%;
+  position: relative;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  grid-column: 1 / 3;
+  font-weight: 300;
+  gap: 10px;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: end;
+  grid-column: 3/3;
+  width: 100%;
+  height: max-content;
+}
+
+.titleContainer h3 {
+  font-weight: 500;
+  margin: 0;
+}
+
+.titleContainer img {
+  width: 30px;
+  height: 30px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.diagnosis {
+  font-weight: 600;
+  font-size: 20px;
+  display: flex;
+  grid-column: 1/4;
+  grid-row: 2;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 16px;
+  text-align: left;
+  display: flex;
+  grid-column: 1/4;
+  grid-row: 3;
+}

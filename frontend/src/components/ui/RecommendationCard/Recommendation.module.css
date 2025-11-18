@@ -6,6 +6,10 @@
   gap: 10px;
 }
 
+.stepPageCard {
+  background: var(--chart-area-blue-fill, rgba(191, 222, 255, 0.7));
+}
+
 .header {
   display: flex;
   justify-content: space-between;
