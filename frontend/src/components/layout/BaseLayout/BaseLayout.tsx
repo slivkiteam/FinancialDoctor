@@ -12,12 +12,14 @@ interface BaseLayoutProps {
   children: React.ReactNode;
   footerStyles?: FooterStyles;
   headerStyles?: StylesBase;
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const BaseLayout = memo(({
   children,
   footerStyles,
   headerStyles,
+  setIsSidebarOpen,
 }: BaseLayoutProps) => {
 
   const finalFooterStyles = useMemo(() => {
@@ -34,7 +36,7 @@ export const BaseLayout = memo(({
 
   return (
     <>
-      <Header styles={finalHeaderStyles} />
+      <Header styles={finalHeaderStyles} setIsSidebarOpen={setIsSidebarOpen} />
       <main>{children}</main>
       <Footer styles={finalFooterStyles} />
     </>

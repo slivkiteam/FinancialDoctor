@@ -59,3 +59,27 @@
   grid-column: 1/4;
   grid-row: 3;
 }
+
+@media (max-width: 1024px) {
+  .diagnose {
+    max-width: 100%;
+    padding: 20px;
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  .titleContainer {
+    grid-column: 1 / 2;
+  }
+  .buttonContainer {
+    grid-column: 1 / 2;
+    justify-content: start;
+  }
+  .diagnosis {
+    font-size: 18px;
+    grid-column: 1/5;
+  }
+  .description {
+    font-size: 14px;
+    grid-column: 1/5;
+  }
+}

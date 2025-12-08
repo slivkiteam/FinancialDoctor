@@ -36,3 +36,14 @@
   right: 50%;
   transform: translate(50%);
 }
+
+@media (max-width: 640px) {
+  .footer {
+    position: relative;
+  }
+  .supportLink {
+    position: absolute;
+    right: 15%;
+    bottom: 15%;
+  }
+}

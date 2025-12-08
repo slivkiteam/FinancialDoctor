@@ -19,6 +19,22 @@
 }
 
 .cards {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .functionality {
+    padding: 20px 16px;
+    padding-top: 30px;
+  }
+
+  .cards {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }

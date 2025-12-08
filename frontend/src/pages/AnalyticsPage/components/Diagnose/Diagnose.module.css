@@ -40,3 +40,14 @@ ul .keyFeatureItem {
 .keyFeatureItem {
   text-align: left;
 }
+
+@media (max-width: 1024px) {
+  .description {
+    font-size: 14px;
+    grid-column: 1/5;
+  }
+  .keyFeatures {
+    padding: 20px;
+    grid-column: 1/5;
+  }
+}

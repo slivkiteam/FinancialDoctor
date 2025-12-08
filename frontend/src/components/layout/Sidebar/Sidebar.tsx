@@ -3,19 +3,29 @@ import s from "./Sidebar.module.css";
 import { SidebarItem } from "./SidebarItem/SidebarItem";
 import { sidebarItems } from "./data";
 
-export const Sidebar = memo(() => {
-  return (
-    <div className={s.sidebar}>
-      <ul className={s.sidebarList}>
-        {sidebarItems.map((item, index) => (
-          <SidebarItem
-            key={index}
-            image={item.image}
-            text={item.text}
-            link={item.link}
-          />
-        ))}
-      </ul>
-    </div>
-  );
-});
+interface SidebarProps {
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const Sidebar = memo(
+  ({ isSidebarOpen, setIsSidebarOpen }: SidebarProps) => {
+    return (
+      <>
+        <div className={`${s.sidebar} ${isSidebarOpen ? s.sidebarOpen : ""}`}>
+          <ul className={s.sidebarList}>
+            {sidebarItems.map((item, index) => (
+              <SidebarItem
+                onClick={() => setIsSidebarOpen(false)}
+                key={index}
+                image={item.image}
+                text={item.text}
+                link={item.link}
+              />
+            ))}
+          </ul>
+        </div>
+      </>
+    );
+  }
+);

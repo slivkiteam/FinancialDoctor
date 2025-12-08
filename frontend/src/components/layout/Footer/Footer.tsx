@@ -17,7 +17,6 @@ export const Footer = memo(({ styles }: FooterProps) => {
   const border = styles?.border;
   const logoTextColor = styles?.logoTextColor;
   
-  
   return (
     <footer className={s.footerContainer} style={{ backgroundColor, borderTop:border }}>
       <div className={s.footer}>

@@ -30,3 +30,18 @@
   background-color: rgb(165, 166, 168);
   z-index: 1;
 }
+
+@media (max-width: 640px) {
+  .stepsContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .stepsBlockContainer {
+    padding: 20px 16px;
+    padding-top: 30px;
+    gap: 20px;
+  }
+  .stepsContainer::before {
+    display: none;
+  }
+}

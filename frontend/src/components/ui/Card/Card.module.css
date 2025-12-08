@@ -3,3 +3,10 @@
   border-radius: 8px;
   padding: 30px;
 }
+
+@media (max-width: 1024px) {
+  .card {
+    padding: 20px;
+    width: 100%;
+  }
+}

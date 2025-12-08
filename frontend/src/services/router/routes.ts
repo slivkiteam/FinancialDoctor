@@ -5,5 +5,6 @@ export enum AppRoutes {
     RECOMMENDATIONS = '/recommendations',
     STEP_PAGE = '/step/:id',
     GOALS = '/goals',
-    CREATE_GOAL = '/goals/create'
+    CREATE_GOAL = '/goals/create',
+    USER_PROFILE = '/user/profile'
 }

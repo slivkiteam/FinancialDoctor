@@ -6,13 +6,14 @@ interface SidebarItemProps {
   image: React.FC<IconComponentProps>;
   text: string;
   link: string;
+  onClick: () => void;
 }
 interface IconComponentProps {
   color: string;
   className?: string;
 }
 
-export const SidebarItem = ({ image, text, link }: SidebarItemProps) => {
+export const SidebarItem = ({ image, text, link, onClick }: SidebarItemProps) => {
   const location = useLocation();
   const isActive = location.pathname === link;
   const [isHovered, setIsHovered] = useState(false);
@@ -24,6 +25,7 @@ export const SidebarItem = ({ image, text, link }: SidebarItemProps) => {
       <Link
         to={link}
         className={isActive ? s.sidebarItemActive : s.sidebarItem}
+        onClick={onClick}
       >
         {React.createElement(image, {
           color: isActive || isHovered ? "#155DFC" : "black",

@@ -26,3 +26,14 @@
   font-weight: 600;
   font-size: 30px;
 }
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 24px;
+    display: flex;
+    text-wrap: wrap;
+  }
+  .card {
+    width: 100%;
+  }
+}

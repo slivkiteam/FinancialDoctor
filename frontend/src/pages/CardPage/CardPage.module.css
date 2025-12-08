@@ -83,3 +83,29 @@
   align-items: center;
   gap: 6px;
 }
+
+@media (max-width: 1024px) {
+  .steps {
+    flex-direction: column;
+  }
+  .cardPage {
+    padding: 20px;
+    gap: 20px;
+  }
+  .title {
+    font-size: 24px;
+  }
+  .banks {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+  }
+  .bankTitle {
+    font-size: 24px;
+  }
+  .securityTitle {
+    font-size: 18px;
+  }
+  .securityAdviceText {
+    font-size: 14px;
+  }
+}
