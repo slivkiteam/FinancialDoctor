@@ -10,6 +10,9 @@ interface SidebarProps {
 
 export const Sidebar = memo(
   ({ isSidebarOpen, setIsSidebarOpen }: SidebarProps) => {
+    const handleBackdropClick = () => {
+      setIsSidebarOpen(false);
+    };
     return (
       <>
         <div className={`${s.sidebar} ${isSidebarOpen ? s.sidebarOpen : ""}`}>
@@ -25,6 +28,9 @@ export const Sidebar = memo(
             ))}
           </ul>
         </div>
+        {isSidebarOpen && (
+          <div className={s.backdrop} onClick={handleBackdropClick} />
+        )}
       </>
     );
   }

@@ -26,15 +26,26 @@
   justify-content: center;
 }
 
+.sliderWrapper {
+  width: 100%;
+  position: relative;
+  display: block;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .functionality {
+    padding: 20px 40px;
+  }
+}
+
 @media (max-width: 640px) {
   .functionality {
     padding: 20px 16px;
     padding-top: 30px;
-  }
-
-  .cards {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
   }
 }
