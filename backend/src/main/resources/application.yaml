@@ -1,2 +1,23 @@
 spring:
-  application.name: financial_doctor
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: financial_doctor
+  datasource:
+    url: jdbc:postgresql://${LOCALHOST:localhost}:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          auto: update
+server:
+  port: 8081
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
