@@ -26,4 +26,8 @@ public class UserService {
         user.setEnabled(true);
         userRepository.save(user);
     }
+
+    public User getById(long id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
 }

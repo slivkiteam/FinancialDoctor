@@ -14,5 +14,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     List<Transaction> findByAccountId(Long accountId);
 
+    List<Transaction> findByUserIdAndTransactionDateBetween(Long userId,
+                                                            java.time.LocalDateTime start,
+                                                            java.time.LocalDateTime end);
+
     Optional<Transaction> findByAccountIdAndExternalTransactionId(Long accountId, String externalTxnId);
 }

@@ -11,7 +11,7 @@ public interface TreatmentPlanRepository extends JpaRepository<TreatmentPlan, Lo
 
     List<TreatmentPlan> findByUserId(Long userId);
 
-    List<TreatmentPlan> findByUserIdAndStatus(String userId, String status);
+    List<TreatmentPlan> findByUserIdAndStatus(Long userId, String status);
 
     List<TreatmentPlan> findByDiagnosisId(Long diagnosisId);
 }

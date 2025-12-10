@@ -4,9 +4,9 @@ spring:
   application:
     name: financial_doctor
   datasource:
-    url: jdbc:postgresql://${LOCALHOST:localhost}:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/doctor-db
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     properties:

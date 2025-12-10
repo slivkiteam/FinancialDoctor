@@ -69,12 +69,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Liquibase (если хочешь управлять миграциями) -->
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-        </dependency>
-
         <!-- Validation (для DTO и Entity) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
