@@ -1,15 +1,17 @@
-package service;
+package ru.slivki.financial_doctor.service;
 
-import exception.ResourceNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.slivki.financial_doctor.exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
-import model.User;
+import ru.slivki.financial_doctor.model.User;
 import org.springframework.stereotype.Service;
-import repository.UserRepository;
+import ru.slivki.financial_doctor.repository.UserRepository;
 
 @AllArgsConstructor
 @Service
 public class UserService {
 
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     public User getByEmail(String email) {
@@ -17,6 +19,8 @@ public class UserService {
     }
 
     public User create(User user) {
+        var passwordEncode = passwordEncoder.encode(user.getPassword());
+        user.setPassword(passwordEncode);
         return userRepository.save(user);
     }
 

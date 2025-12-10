@@ -1,4 +1,4 @@
-package web.mapper;
+package ru.slivki.financial_doctor.web.mapper;
 
 import java.util.List;
 

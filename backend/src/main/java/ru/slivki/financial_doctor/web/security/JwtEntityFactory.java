@@ -1,7 +1,7 @@
-package web.security;
+package ru.slivki.financial_doctor.web.security;
 
-import model.Role;
-import model.User;
+import ru.slivki.financial_doctor.model.Role;
+import ru.slivki.financial_doctor.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

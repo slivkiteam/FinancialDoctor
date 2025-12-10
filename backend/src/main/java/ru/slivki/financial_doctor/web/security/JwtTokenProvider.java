@@ -1,4 +1,4 @@
-package web.security;
+package ru.slivki.financial_doctor.web.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -8,16 +8,16 @@ import jakarta.annotation.PostConstruct;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import model.Role;
-import model.User;
+import ru.slivki.financial_doctor.model.Role;
+import ru.slivki.financial_doctor.model.User;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import service.UserService;
-import web.dto.auth.JwtResponse;
+import ru.slivki.financial_doctor.service.UserService;
+import ru.slivki.financial_doctor.web.dto.auth.JwtResponse;
 
 import java.security.Key;
 import java.time.Instant;

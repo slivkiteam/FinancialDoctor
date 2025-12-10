@@ -1,4 +1,4 @@
-package model;
+package ru.slivki.financial_doctor.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

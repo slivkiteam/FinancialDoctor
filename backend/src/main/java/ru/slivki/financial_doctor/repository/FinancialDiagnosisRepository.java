@@ -1,6 +1,6 @@
-package repository;
+package ru.slivki.financial_doctor.repository;
 
-import model.FinancialDiagnosis;
+import ru.slivki.financial_doctor.model.FinancialDiagnosis;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

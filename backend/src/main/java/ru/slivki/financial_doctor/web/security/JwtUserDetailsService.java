@@ -1,4 +1,4 @@
-package web.security;
+package ru.slivki.financial_doctor.web.security;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import service.UserService;
+import ru.slivki.financial_doctor.service.UserService;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)

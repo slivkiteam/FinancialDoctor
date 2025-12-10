@@ -1,4 +1,4 @@
-package model;
+package ru.slivki.financial_doctor.model;
 
 public enum Role {
     ROLE_USER,

@@ -1,4 +1,4 @@
-package web.dto.diagnosis;
+package ru.slivki.financial_doctor.web.dto.diagnosis;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
-package web.controller;
+package ru.slivki.financial_doctor.web.controller;
 
 import jakarta.validation.Valid;
-import model.FinancialDiagnosis;
-import model.TreatmentPlan;
+import ru.slivki.financial_doctor.model.FinancialDiagnosis;
+import ru.slivki.financial_doctor.model.TreatmentPlan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import service.FinancialDiagnosisService;
-import web.dto.diagnosis.FinancialDiagnosisResponse;
-import web.dto.diagnosis.TreatmentPlanResponse;
-import web.dto.diagnosis.UpdateTreatmentPlanRequest;
+import ru.slivki.financial_doctor.service.FinancialDiagnosisService;
+import ru.slivki.financial_doctor.web.dto.diagnosis.FinancialDiagnosisResponse;
+import ru.slivki.financial_doctor.web.dto.diagnosis.TreatmentPlanResponse;
+import ru.slivki.financial_doctor.web.dto.diagnosis.UpdateTreatmentPlanRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;

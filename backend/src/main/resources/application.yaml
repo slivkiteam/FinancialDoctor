@@ -4,9 +4,9 @@ spring:
   application:
     name: financial_doctor
   datasource:
-    url: jdbc:postgresql://localhost:5432/doctor-db
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${LOCALHOST:localhost}:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     properties:
@@ -16,7 +16,6 @@ spring:
           auto: update
 server:
   port: 8081
-
 # JWT settings (override via .env or profiles)
 security:
   jwt:

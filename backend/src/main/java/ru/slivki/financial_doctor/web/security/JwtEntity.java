@@ -1,4 +1,4 @@
-package web.security;
+package ru.slivki.financial_doctor.web.security;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

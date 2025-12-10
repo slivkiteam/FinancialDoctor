@@ -1,7 +1,7 @@
-package service;
+package ru.slivki.financial_doctor.service;
 
-import model.FinancialDiagnosis;
-import model.TreatmentPlan;
+import ru.slivki.financial_doctor.model.FinancialDiagnosis;
+import ru.slivki.financial_doctor.model.TreatmentPlan;
 
 import java.math.BigDecimal;
 import java.util.List;

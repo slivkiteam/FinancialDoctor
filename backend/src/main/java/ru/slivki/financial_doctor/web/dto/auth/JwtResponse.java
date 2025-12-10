@@ -1,4 +1,4 @@
-package web.dto.auth;
+package ru.slivki.financial_doctor.web.dto.auth;
 
 
 import lombok.AccessLevel;

@@ -1,4 +1,4 @@
-package web.dto.user;
+package ru.slivki.financial_doctor.web.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class UserDto {
+public class UserCreatedDto {
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
     private String email;

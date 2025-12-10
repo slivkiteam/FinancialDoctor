@@ -1,16 +1,16 @@
-package service;
+package ru.slivki.financial_doctor.service;
 
-import exception.ResourceNotFoundException;
+import ru.slivki.financial_doctor.exception.ResourceNotFoundException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import model.User;
+import ru.slivki.financial_doctor.model.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-import web.dto.auth.JwtRequest;
-import web.dto.auth.JwtResponse;
-import web.security.JwtTokenProvider;
+import ru.slivki.financial_doctor.web.dto.auth.JwtRequest;
+import ru.slivki.financial_doctor.web.dto.auth.JwtResponse;
+import ru.slivki.financial_doctor.web.security.JwtTokenProvider;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)

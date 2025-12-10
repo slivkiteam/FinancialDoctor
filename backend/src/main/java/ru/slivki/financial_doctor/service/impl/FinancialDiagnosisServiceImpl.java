@@ -1,15 +1,15 @@
-package service.impl;
+package ru.slivki.financial_doctor.service.impl;
 
 import jakarta.transaction.Transactional;
-import model.FinancialDiagnosis;
-import model.TreatmentPlan;
-import model.Transaction;
+import ru.slivki.financial_doctor.model.FinancialDiagnosis;
+import ru.slivki.financial_doctor.model.TreatmentPlan;
+import ru.slivki.financial_doctor.model.Transaction;
 import org.springframework.stereotype.Service;
-import repository.FinancialDiagnosisRepository;
-import repository.TreatmentPlanRepository;
-import repository.TransactionRepository;
-import repository.UserRepository;
-import service.FinancialDiagnosisService;
+import ru.slivki.financial_doctor.repository.FinancialDiagnosisRepository;
+import ru.slivki.financial_doctor.repository.TreatmentPlanRepository;
+import ru.slivki.financial_doctor.repository.TransactionRepository;
+import ru.slivki.financial_doctor.repository.UserRepository;
+import ru.slivki.financial_doctor.service.FinancialDiagnosisService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
