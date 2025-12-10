@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import service.UserService;
 import web.dto.auth.JwtResponse;
 
 import java.security.Key;
@@ -24,6 +25,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
 
 @Service
 @RequiredArgsConstructor
@@ -69,7 +71,7 @@ public class JwtTokenProvider {
     public JwtResponse refreshUserTokens(String refreshToken) {
         JwtResponse jwtResponse = new JwtResponse();
         if (!validateToken(refreshToken)) {
-            throw new AccessDeniedException("Invalid refresh token");
+            throw new AccessDeniedException("");
         }
         Long userId = Long.valueOf(getId(refreshToken));
         User user = userService.getById(userId);
