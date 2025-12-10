@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
+import ru.slivki.financial_doctor.exception.ResourceNotFoundException;
 
 import java.io.IOException;
 
@@ -32,9 +33,10 @@ public class JwtTokenFilter extends GenericFilterBean {
                 if (auth != null) {
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
-            } catch (RuntimeException ignored) {
+            } catch (ResourceNotFoundException ignored) {
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }
+

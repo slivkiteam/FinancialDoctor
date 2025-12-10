@@ -90,7 +90,6 @@ public class JwtTokenProvider {
         return !claims.getBody().getExpiration().before(new Date());
     }
 
-
     private List<String> resolveRoles(Set<Role> roles) {
         return roles.stream().map(Enum::name).toList();
     }
@@ -122,3 +121,4 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 }
+

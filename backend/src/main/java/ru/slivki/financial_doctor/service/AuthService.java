@@ -25,9 +25,9 @@ public class AuthService {
         var jwtResponse = new JwtResponse();
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         User user = userService.getByEmail(loginRequest.getUsername());
-        if (!user.isEnabled()) {
-            throw new ResourceNotFoundException("User not click on email link for end register");
-        }
+//        if (!user.isEnabled()) {
+//            throw new ResourceNotFoundException("User not click on email link for end register");
+//        }
         jwtResponse.setUsername(user.getEmail());
         jwtResponse.setId(user.getId());
         jwtResponse.setAccessToken(jwtTokenProvider.createAccessToken(user.getId(), user.getEmail(), user.getRoles()));

@@ -19,11 +19,8 @@ public class User {
 
     @Column(name = "external_user_id", unique = true)
     private String externalUserId;
-    // добавить в бд
     private String confirmationToken;
-
-    // добавить в бд
-    boolean isEnabled;
+    private boolean isEnabled;
     private String email;
     private String name;
     private String password;
@@ -39,7 +36,6 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    //добавить в бд
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
