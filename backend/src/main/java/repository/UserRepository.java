@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByExternalUserId(String externalUserId);
-
+    Optional<User> findByConfirmationToken(String token);
     Optional<User> findByEmail(String email);
 }
