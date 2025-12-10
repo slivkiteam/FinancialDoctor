@@ -55,6 +55,14 @@ public class ApplicationConfig {
                 .authorizeHttpRequests(configurer ->
                         configurer.requestMatchers("/api/v1/auth/**").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
+                                // Open-banking mock endpoints exposed for integration tests
+                                .requestMatchers("/connect/**",
+                                        "/account-consents/**",
+                                        "/accounts/**",
+                                        "/balances/**",
+                                        "/transactions/**",
+                                        "/statements/**")
+                                .permitAll()
                                 .anyRequest().authenticated())
                 .anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),
