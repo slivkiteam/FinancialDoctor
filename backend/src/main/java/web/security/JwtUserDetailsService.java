@@ -1,4 +1,4 @@
-package ru.slivki.financial_doctor.web.security;
+package web.security;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,6 +20,4 @@ public class JwtUserDetailsService implements UserDetailsService {
         var user = userService.getByUsername(username);
         return JwtEntityFactory.createJwtEntity(user);
     }
-
-
 }

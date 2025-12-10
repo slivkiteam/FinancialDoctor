@@ -1,4 +1,4 @@
-package ru.slivki.financial_doctor.web.security;
+package web.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -8,18 +8,22 @@ import jakarta.annotation.PostConstruct;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import model.Role;
+import model.User;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import ru.slivki.financial_doctor.web.dto.auth.JwtResponse;
+import web.dto.auth.JwtResponse;
 
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -65,14 +69,14 @@ public class JwtTokenProvider {
     public JwtResponse refreshUserTokens(String refreshToken) {
         JwtResponse jwtResponse = new JwtResponse();
         if (!validateToken(refreshToken)) {
-            throw new AccessDeniedException();
+            throw new AccessDeniedException("Invalid refresh token");
         }
         Long userId = Long.valueOf(getId(refreshToken));
         User user = userService.getById(userId);
         jwtResponse.setId(userId);
-        jwtResponse.setUsername(user.getUsername());
-        jwtResponse.setAccessToken(createAccessToken(user.getId(), user.getUsername(), user.getRoles()));
-        jwtResponse.setRefreshToken(createRefreshToken(user.getId(), user.getUsername()));
+        jwtResponse.setUsername(user.getEmail());
+        jwtResponse.setAccessToken(createAccessToken(user.getId(), user.getEmail(), user.getRoles()));
+        jwtResponse.setRefreshToken(createRefreshToken(user.getId(), user.getEmail()));
         return jwtResponse;
     }
 

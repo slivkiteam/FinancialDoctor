@@ -1,4 +1,4 @@
-package ru.slivki.financial_doctor.web.dto.auth;
+package web.dto.auth;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;

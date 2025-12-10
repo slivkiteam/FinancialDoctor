@@ -1,5 +1,7 @@
-package ru.slivki.financial_doctor.web.security;
+package web.security;
 
+import model.Role;
+import model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -10,7 +12,7 @@ import java.util.stream.Collectors;
 public class JwtEntityFactory {
 
     public static JwtEntity createJwtEntity(User user) {
-        return new JwtEntity(user.getId(), user.getUsername(), user.getName(), user.getPassword(), mapToGrantedAuthorities(new ArrayList<>(user.getRoles())));
+        return new JwtEntity(user.getId(), user.getEmail(), user.getName(), user.getPassword(), mapToGrantedAuthorities(new ArrayList<>(user.getRoles())));
     }
 
     public static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {

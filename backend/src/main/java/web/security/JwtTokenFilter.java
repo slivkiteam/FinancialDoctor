@@ -1,4 +1,4 @@
-package ru.slivki.financial_doctor.web.security;
+package web.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
+
 import java.io.IOException;
 
 @AllArgsConstructor

@@ -1,9 +1,14 @@
 package model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -17,7 +22,7 @@ public class User {
 
     private String email;
     private String name;
-
+    private String password;
     @Column(name = "phone_number", length = 16)
     private String phoneNumber;
 
@@ -29,4 +34,10 @@ public class User {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "users_roles")
+    private Set<Role> roles;
 }
