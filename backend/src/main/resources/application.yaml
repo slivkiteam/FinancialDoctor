@@ -8,6 +8,18 @@ spring:
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
+  bank:
+    datasource:
+      url: jdbc:h2:file:./data/bankdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password: ""
+      driver-class-name: org.h2.Driver
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.H2Dialect
+          hbm2ddl:
+            auto: update
   jpa:
     properties:
       hibernate:
@@ -16,7 +28,6 @@ spring:
           auto: update
 server:
   port: 8081
-# JWT settings (override via .env or profiles)
 security:
   jwt:
     secret: ${JWT_SECRET:change-me-to-a-long-random-secret-key}
