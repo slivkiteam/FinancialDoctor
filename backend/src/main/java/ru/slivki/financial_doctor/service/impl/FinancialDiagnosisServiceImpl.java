@@ -9,7 +9,7 @@ import ru.slivki.financial_doctor.repository.FinancialDiagnosisRepository;
 import ru.slivki.financial_doctor.repository.TreatmentPlanRepository;
 import ru.slivki.financial_doctor.repository.TransactionRepository;
 import ru.slivki.financial_doctor.repository.UserRepository;
-import ru.slivki.financial_doctor.bank.service.BankDataProvider;
+import ru.slivki.financial_doctor.bank.client.BankClient;
 import ru.slivki.financial_doctor.service.FinancialDiagnosisService;
 
 import java.math.BigDecimal;
@@ -26,19 +26,19 @@ public class FinancialDiagnosisServiceImpl implements FinancialDiagnosisService 
     private final TreatmentPlanRepository treatmentPlanRepository;
     private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
-    private final BankDataProvider bankDataProvider;
+    private final BankClient bankClient;
 
     public FinancialDiagnosisServiceImpl(
             final FinancialDiagnosisRepository financialDiagnosisRepository,
             final TreatmentPlanRepository treatmentPlanRepository,
             final TransactionRepository transactionRepository,
             final UserRepository userRepository,
-            final BankDataProvider bankDataProvider) {
+            final BankClient bankClient) {
         this.financialDiagnosisRepository = financialDiagnosisRepository;
         this.treatmentPlanRepository = treatmentPlanRepository;
         this.transactionRepository = transactionRepository;
         this.userRepository = userRepository;
-        this.bankDataProvider = bankDataProvider;
+        this.bankClient = bankClient;
     }
 
     @Override
@@ -51,13 +51,8 @@ public class FinancialDiagnosisServiceImpl implements FinancialDiagnosisService 
         LocalDateTime periodStart = today.minusMonths(1).atStartOfDay();
         LocalDateTime periodEnd = today.plusDays(1).atStartOfDay();
 
-        List<Transaction> transactions =
-                transactionRepository.findByUserIdAndTransactionDateBetween(userId, periodStart, periodEnd);
-
-        // Fallback to mock bank DB if пользовательские транзакции отсутствуют
-        if (transactions.isEmpty()) {
-            transactions = bankDataProvider.loadTransactionsFromBank();
-        }
+        // Получаем транзакции из банка через REST API
+        List<Transaction> transactions = bankClient.getTransactions(userId, periodStart, periodEnd);
 
         BigDecimal totalIncome = BigDecimal.ZERO;
         BigDecimal totalExpenses = BigDecimal.ZERO;

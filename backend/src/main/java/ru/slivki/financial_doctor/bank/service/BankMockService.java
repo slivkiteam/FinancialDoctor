@@ -103,8 +103,18 @@ public class BankMockService {
         return new TransactionListResponse(new TransactionListResponse.Data(txns));
     }
 
-    public TransactionListResponse getTransactionsByAccount(String accountId) {
-        List<TransactionListResponse.Transaction> txns = transactionRepository.findByAccountId(accountId).stream()
+    public TransactionListResponse getTransactionsByAccount(String accountId, String fromBookingDateTime, String toBookingDateTime) {
+        List<BankTransaction> bankTransactions;
+        
+        if (fromBookingDateTime != null && toBookingDateTime != null) {
+            OffsetDateTime from = parseDate(fromBookingDateTime);
+            OffsetDateTime to = parseDate(toBookingDateTime);
+            bankTransactions = transactionRepository.findByAccountIdAndTransactionDateTimeBetween(accountId, from, to);
+        } else {
+            bankTransactions = transactionRepository.findByAccountId(accountId);
+        }
+        
+        List<TransactionListResponse.Transaction> txns = bankTransactions.stream()
                 .map(this::toTransactionDto)
                 .toList();
         return new TransactionListResponse(new TransactionListResponse.Data(txns));

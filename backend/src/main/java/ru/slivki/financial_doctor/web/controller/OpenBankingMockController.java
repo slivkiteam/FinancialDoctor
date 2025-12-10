@@ -116,8 +116,11 @@ public class OpenBankingMockController {
     }
 
     @GetMapping("/accounts/{accountId}/transactions")
-    public TransactionListResponse getTransactionsByAccount(@PathVariable String accountId) {
-        return bankMockService.getTransactionsByAccount(accountId);
+    public TransactionListResponse getTransactionsByAccount(
+            @PathVariable String accountId,
+            @RequestParam(required = false) String fromBookingDateTime,
+            @RequestParam(required = false) String toBookingDateTime) {
+        return bankMockService.getTransactionsByAccount(accountId, fromBookingDateTime, toBookingDateTime);
     }
 
     @PostMapping(value = "/statements", consumes = MediaType.APPLICATION_JSON_VALUE)
