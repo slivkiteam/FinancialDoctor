@@ -54,7 +54,7 @@ public class ApplicationConfig {
                         }))
                 .authorizeHttpRequests(configurer ->
                         configurer.requestMatchers("/api/v1/auth/**").permitAll()
-                                .requestMatchers("/swagger-ui/**").permitAll()
+                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 // Open-banking mock endpoints exposed for integration tests
                                 .requestMatchers("/connect/**",
                                         "/account-consents/**",

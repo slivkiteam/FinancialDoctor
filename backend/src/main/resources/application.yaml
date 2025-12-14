@@ -36,8 +36,8 @@ security:
     secret: ${JWT_SECRET:change-me-to-a-long-random-secret-key}
     access: ${JWT_ACCESS_HOURS:12}
     refresh: ${JWT_REFRESH_DAYS:30}
+
 springdoc:
-  api-docs:
-    enabled: false
   swagger-ui:
-    enabled: false
+    path: /swagger-ui.html
+
