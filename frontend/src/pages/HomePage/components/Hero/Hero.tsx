@@ -42,7 +42,7 @@ export const Hero = () => {
           </div>
         </div>
         <picture>
-          <source media="(max-width: 640px)" srcSet={mobileHeroImage} />
+          <source media="(max-width: 1200px)" srcSet={mobileHeroImage} />
           <source media="(min-width: 641px)" srcSet={heroImage} />
           <img className={s.heroImage} src={heroImage} alt="Hero" />
         </picture>

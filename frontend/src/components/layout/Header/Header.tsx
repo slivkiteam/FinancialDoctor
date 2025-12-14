@@ -10,7 +10,7 @@ interface HeaderProps {
     border: string;
     logoTextColor?: string;
   };
-  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSidebarOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Header = memo(({ styles, setIsSidebarOpen }: HeaderProps) => {
@@ -35,7 +35,7 @@ export const Header = memo(({ styles, setIsSidebarOpen }: HeaderProps) => {
         <Link to={AppRoutes.USER_PROFILE}>
           <div className={s.avatar}>AS</div>
         </Link>
-        {showBurger && <div onClick={() => setIsSidebarOpen(prev => !prev)} className={s.burgerMenu}>&#9776;</div>}
+        {showBurger && <div onClick={() => setIsSidebarOpen?.(prev => !prev)} className={s.burgerMenu}>&#9776;</div>}
       </div>
     </header>
   );

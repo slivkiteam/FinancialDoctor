@@ -44,12 +44,6 @@ export const CardPage = () => {
               Безопасность гарантирует банк
             </p>
           </div>
-          <div className={s.securityAdvice}>
-            <img src={shield} alt="shield" />
-            <p className={s.securityAdviceText}>
-              Безопасность гарантирует банк
-            </p>
-          </div>
         </div>
       </Card>
     </div>

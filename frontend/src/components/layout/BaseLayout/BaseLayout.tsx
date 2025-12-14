@@ -12,7 +12,7 @@ interface BaseLayoutProps {
   children: React.ReactNode;
   footerStyles?: FooterStyles;
   headerStyles?: StylesBase;
-  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSidebarOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const BaseLayout = memo(({

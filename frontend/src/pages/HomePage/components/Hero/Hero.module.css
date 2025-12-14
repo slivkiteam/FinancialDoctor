@@ -93,6 +93,11 @@
   .ellipsSecond {
     display: none;
   }
+  .heroImage {
+    width: 450px;
+    height: 450px;
+    right: clamp(-100%, -50vw, -10%);
+  }
 }
 
 @media (max-width: 640px) {
@@ -100,7 +105,6 @@
     width: 100%;
     padding: 20px 10px;
     box-sizing: border-box;
-    overflow: hidden;
   }
   .textBlock {
     display: flex;
@@ -119,11 +123,6 @@
   .description {
     font-size: 12px;
   }
-  .heroImage {
-    width: 400px;
-    height: 400px;
-    right: clamp(-100%, -50vw, -10%);
-  }
   .textBlock {
     width: 240px;
   }
@@ -137,7 +136,7 @@
     width: 146px;
     height: 146px;
     top: 20%;
-    right: -5%;
+    right: 20%;
   }
   .ellipsFirst {
     display: block;
@@ -152,7 +151,25 @@
     width: 100px;
     height: 100px;
     bottom: 25%;
-    right: 0;
+    right: 23%;
     z-index: -1;
+  }
+}
+
+@media (max-width: 458px) {
+  .heroImage {
+    width: 146px;
+    height: 146px;
+    top: 20%;
+    right: -5%;
+  }
+  .ellipsSecond {
+    right: 0;
+  }
+}
+
+@media (max-width: 280px) {
+  .heroImage {
+    display: none;
   }
 }
