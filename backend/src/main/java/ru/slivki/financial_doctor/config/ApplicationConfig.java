@@ -64,7 +64,7 @@ public class ApplicationConfig {
                                         "/statements/**")
                                 .permitAll()
                                 .anyRequest().authenticated())
-                .anonymous(AbstractHttpConfigurer::disable)
+                //.anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class).build();
     }

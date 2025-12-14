@@ -13,8 +13,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class JwtRequest {
 
-    @NotNull(message = "Username can`t be NULL")
-    String username;
+    @NotNull(message = "Email can`t be NULL")
+    String email;
 
     @NotNull(message = "Password can`t be NULL")
     String password;

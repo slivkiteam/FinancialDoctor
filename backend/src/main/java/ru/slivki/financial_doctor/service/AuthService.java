@@ -23,8 +23,8 @@ public class AuthService {
 
     public JwtResponse login(JwtRequest loginRequest) {
         var jwtResponse = new JwtResponse();
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        User user = userService.getByEmail(loginRequest.getUsername());
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+        User user = userService.getByEmail(loginRequest.getEmail());
 //        if (!user.isEnabled()) {
 //            throw new ResourceNotFoundException("User not click on email link for end register");
 //        }
