@@ -1,0 +1,105 @@
+.loginPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 184px);
+  background-color: #f5f5f5;
+}
+
+.loginTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 400px;
+  background: white;
+  padding: 40px 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.loginForm button {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(142, 197, 255, 1);
+  border-radius: 10px;
+  font-size: 16px;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid rgba(229, 229, 229, 1);
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.registerLinkContainer {
+  margin-top: 15px;
+  z-index: 2;
+}
+
+.registerLink {
+  border-bottom: 1px solid black;
+}
+.spring {
+  position: absolute;
+  top: 150px;
+  right: 50vw;
+  width: 200px;
+  height: auto;
+  z-index: 1;
+}
+
+.ellipse {
+  position: absolute;
+  top: 300px;
+  right: 20vw;
+  width: 100px;
+  height: auto;
+  z-index: 1;
+}
+.ellipseSecond {
+  position: absolute;
+  top: 500px;
+  left: 20vw;
+  width: 150px;
+  height: auto;
+  z-index: 1;
+}
+
+@media (max-width: 700px) {
+  .loginPage {
+    min-height: 100%;
+    padding: 10px;
+  }
+  .loginForm {
+    width: 90%;
+    padding: 30px 15px;
+  }
+  .loginTitle {
+    font-size: 20px;
+  }
+  .ellipse,
+  .ellipseSecond,
+  .spring {
+    display: none;
+  }
+}

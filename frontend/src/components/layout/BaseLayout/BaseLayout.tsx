@@ -13,6 +13,7 @@ interface BaseLayoutProps {
   footerStyles?: FooterStyles;
   headerStyles?: StylesBase;
   setIsSidebarOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isButtonVisible?: boolean;
 }
 
 export const BaseLayout = memo(({
@@ -20,6 +21,7 @@ export const BaseLayout = memo(({
   footerStyles,
   headerStyles,
   setIsSidebarOpen,
+  isButtonVisible
 }: BaseLayoutProps) => {
 
   const finalFooterStyles = useMemo(() => {
@@ -36,7 +38,7 @@ export const BaseLayout = memo(({
 
   return (
     <>
-      <Header styles={finalHeaderStyles} setIsSidebarOpen={setIsSidebarOpen} />
+      <Header styles={finalHeaderStyles} setIsSidebarOpen={setIsSidebarOpen} isButtonVisible={isButtonVisible} />
       <main>{children}</main>
       <Footer styles={finalFooterStyles} />
     </>

@@ -1,0 +1,37 @@
+.unauthorizedPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 184px);
+  gap: 50px;
+  padding: 20px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 48px;
+}
+
+.lock {
+  width: 200px;
+  height: 200px;
+}
+
+.message {
+  font-size: 24px;
+  text-align: center;
+}
+
+
+@media (max-width: 750px) {
+  .unauthorizedPage {
+    gap: 32px;
+  }
+  .title {
+    font-size: 24px;
+  }
+  .message {
+    font-size: 20px;
+  }
+}
