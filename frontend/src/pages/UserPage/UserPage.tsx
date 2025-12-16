@@ -30,11 +30,11 @@ export const UserPage = () => {
       </div>
       <div className={s.input}>
         <span>Имя</span>
-        <input type="text" value={ctx?.username || ""} disabled />
+        <input type="text" value={ctx?.user?.username || ""} disabled />
       </div>
       <div className={s.input}>
         <span>Почта</span>
-        <input type="email" value={ctx?.username || ""} disabled />
+        <input type="email" value={ctx?.user?.username || ""} disabled />
       </div>
       <div className={s.buttons}>
         <button>Редактировать</button>

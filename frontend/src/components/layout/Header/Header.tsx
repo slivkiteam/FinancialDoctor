@@ -30,7 +30,7 @@ export const Header = memo(
     ];
 
     const showBurger = burgerPaths.includes(location.pathname);
-    const username = ctx?.isAuthenticated ? ctx?.username : null;
+    const username = ctx?.isAuthenticated ? ctx?.user?.username : null;
     const headerUsername = username?.slice(0, 2).toUpperCase();
 
     return (

@@ -6,6 +6,14 @@
   width: 100%;
 }
 
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  width: 100%;
+}
+
 .financialHealthContainer {
   display: flex;
   flex-wrap: wrap;

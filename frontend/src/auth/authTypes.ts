@@ -12,3 +12,7 @@ export type RegisterData = {
     password: string;
 }
 
+export type UserData = {
+    id: number;
+    username: string;
+}

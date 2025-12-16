@@ -1,9 +1,9 @@
 import { AppRoutes } from "@/services/router/routes";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 import { AUTH_ROUTES } from "./authRoutes";
-import type { LoginData, RegisterData } from "./authTypes";
+import type { LoginData, RegisterData, UserData } from "./authTypes";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -12,10 +12,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [username, setUsername] = useState<string | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
   const [isAuthInitialized, setIsAuthInitialized] = useState(false);
-
   const navigate = useNavigate();
+
+  const refreshAccessToken = useCallback(async (): Promise<string> => {
+    const response = await fetch(AUTH_ROUTES.REFRESH, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: refreshToken,
+    });
+
+    if (!response.ok) {
+      throw new Error("Token refresh failed");
+    }
+
+    const data = await response.json();
+    setAccessToken(data.accessToken);
+    setRefreshToken(data.refreshToken);
+    setUser({ username: data.username, id: data.id });
+    localStorage.setItem("refreshToken", data.refreshToken);
+    setIsAuthenticated(true);
+
+    return data.accessToken;
+  }, [refreshToken]);
 
   useEffect(() => {
     const initAuth = async () => {
@@ -32,34 +54,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsAuthInitialized(true);
       }
     };
-
     initAuth();
-  }, []);
-
-  async function refreshAccessToken() {
-    console.log("refreshToken:", refreshToken);
-    const response = await fetch(AUTH_ROUTES.REFRESH, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: refreshToken,
-    });
-
-    if (!response.ok) {
-      throw new Error("Token refresh failed");
-    }
-
-    const data = await response.json();
-
-    setAccessToken(data.accessToken);
-    setRefreshToken(data.refreshToken);
-    setUsername(data.username);
-    localStorage.setItem("refreshToken", data.refreshToken);
-    setIsAuthenticated(true);
-
-    return data.accessToken;
-  }
+  }, [refreshAccessToken, refreshToken]);
 
   async function register(registerData: RegisterData): Promise<void> {
     const response = await fetch(AUTH_ROUTES.REGISTER, {
@@ -91,22 +87,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     const data: LoginData = await response.json();
+
+    if (!data) {
+      throw new Error("Invalid login response");
+    }
+
     setAccessToken(data.accessToken);
     setRefreshToken(data.refreshToken);
     setIsAuthenticated(true);
     localStorage.setItem("refreshToken", data.refreshToken);
-    setUsername(data.username);
+    setUser({ username: data.username, id: data.id });
     navigate(AppRoutes.ANALYTICS);
     return data;
   }
 
   function logout() {
     setIsLoggingOut(true);
-    setUsername(null);
+    setUser(null);
     setAccessToken(null);
     setRefreshToken(null);
     setIsAuthenticated(false);
-    console.log("User logged out");
     localStorage.removeItem("refreshToken");
     setTimeout(() => {
       setIsLoggingOut(false);
@@ -120,7 +120,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         refreshToken,
         isAuthenticated,
         isLoggingOut,
-        username,
+        user,
         login,
         logout,
         register,
