@@ -42,5 +42,10 @@
 }
 
 @media (max-width: 640px) {
-
+  .stepsBlockContainer {
+    padding: 40px 10px;
+  }
+  .title {
+    font-size: 24px;
+  }
 }

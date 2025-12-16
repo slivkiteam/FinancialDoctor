@@ -44,7 +44,7 @@ export const Header = memo(
                 <div className={s.avatar}>{headerUsername}</div>
               </Link>
             ) : (
-              <Button>
+              <Button className={s.headerButton}>
                 <Link to={AppRoutes.REGISTER}>Зарегистрироваться</Link>
               </Button>
             ))}

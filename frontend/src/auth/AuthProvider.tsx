@@ -1,9 +1,9 @@
 import { AppRoutes } from "@/services/router/routes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 import { AUTH_ROUTES } from "./authRoutes";
-import type { LoginData } from "./authTypes";
+import type { LoginData, RegisterData } from "./authTypes";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -13,27 +13,67 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
+  const [isAuthInitialized, setIsAuthInitialized] = useState(false);
 
   const navigate = useNavigate();
 
-  async function register(
-    username: string,
-    email: string,
-    password: string,
-    phoneNumber: string
-  ): Promise<void> {
+  useEffect(() => {
+    const initAuth = async () => {
+      if (!refreshToken) {
+        setIsAuthInitialized(true);
+        return;
+      }
+
+      try {
+        await refreshAccessToken();
+      } catch {
+        logout();
+      } finally {
+        setIsAuthInitialized(true);
+      }
+    };
+
+    initAuth();
+  }, []);
+
+  async function refreshAccessToken() {
+    console.log("refreshToken:", refreshToken);
+    const response = await fetch(AUTH_ROUTES.REFRESH, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: refreshToken,
+    });
+
+    if (!response.ok) {
+      throw new Error("Token refresh failed");
+    }
+
+    const data = await response.json();
+
+    setAccessToken(data.accessToken);
+    setRefreshToken(data.refreshToken);
+    setUsername(data.username);
+    localStorage.setItem("refreshToken", data.refreshToken);
+    setIsAuthenticated(true);
+
+    return data.accessToken;
+  }
+
+  async function register(registerData: RegisterData): Promise<void> {
     const response = await fetch(AUTH_ROUTES.REGISTER, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, email, password, phoneNumber }),
+      body: JSON.stringify(registerData),
     });
 
     if (!response.ok) {
       throw new Error("Registration failed");
     }
-
+    login(registerData.email, registerData.password);
     return await response.json();
   }
 
@@ -66,8 +106,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setAccessToken(null);
     setRefreshToken(null);
     setIsAuthenticated(false);
+    console.log("User logged out");
     localStorage.removeItem("refreshToken");
-
     setTimeout(() => {
       setIsLoggingOut(false);
     }, 50);
@@ -84,6 +124,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         login,
         logout,
         register,
+        isAuthInitialized,
       }}
     >
       {children}

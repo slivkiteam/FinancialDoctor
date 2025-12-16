@@ -88,8 +88,31 @@ const BarChartWithMinHeight = () => {
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis width="auto" />
-      <Tooltip />
-      <Legend />
+      <Tooltip
+        content={({ payload, label }) => {
+          if (!payload || payload.length === 0) return null;
+          return (
+            <div
+              style={{
+                background: "#fff",
+                padding: 8,
+                border: "1px solid #ccc",
+              }}
+            >
+              <strong>{label}</strong>
+              <br />
+              {payload.map((p) => (
+                <div key={p.dataKey}>
+                  {p.dataKey === "revenue" ? "Доход: " : "Расход: "} {p.value} ₽
+                </div>
+              ))}
+            </div>
+          );
+        }}
+      />
+      <Legend
+        formatter={(value) => (value === "revenue" ? "Доход" : "Расход")}
+      />
       <Bar dataKey="waste" fill="#8884d8" minPointSize={5}>
         <LabelList dataKey="name" content={renderCustomizedLabel} />
       </Bar>

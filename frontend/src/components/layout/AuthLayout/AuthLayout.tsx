@@ -23,7 +23,7 @@ export const AuthLayout = ({ type }: AuthLayoutProps) => {
   const handleAuthSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isRegister) {
-      ctx?.register(email, name, password, phone);
+      ctx?.register({ email, name, password, phoneNumber: phone  });
     } else {
       ctx?.login(email, password);
     }
@@ -31,7 +31,7 @@ export const AuthLayout = ({ type }: AuthLayoutProps) => {
 
   return (
     <BaseLayout isButtonVisible={false}>
-      <div className={s.loginPage}>
+      <div className={isRegister ? s.registerPage : s.loginPage}>
         <form className={s.loginForm} onSubmit={handleAuthSubmit}>
           {isRegister ? (
             <h2 className={s.loginTitle}>Регистрация в FinancialDoctor</h2>

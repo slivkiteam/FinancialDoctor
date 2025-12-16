@@ -26,6 +26,7 @@
 
 @media (max-width: 750px) {
   .unauthorizedPage {
+    height: 100%;
     gap: 32px;
   }
   .title {
