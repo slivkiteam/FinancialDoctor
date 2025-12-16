@@ -2,9 +2,19 @@ import { Card } from "@/components/ui/Card/Card";
 import { Label, Pie, PieChart, ResponsiveContainer } from "recharts";
 import s from "./FinancialHealth.module.css";
 
+const procent = Math.floor(Math.random() * 100);
+const status =
+  procent >= 75
+    ? "Отлично"
+    : procent >= 50
+    ? "Хорошо"
+    : procent >= 25
+    ? "Средне"
+    : "Плохо";
+
 const data = [
-  { name: "Group A", value: 75, fill: "rgba(0, 201, 81, 1)" },
-  { name: "Group B", value: 25, fill: "rgba(185, 251, 210, 0.7)" },
+  { name: "Group A", value: procent, fill: "rgba(0, 201, 81, 1)" },
+  { name: "Group B", value: 100 - procent, fill: "rgba(185, 251, 210, 0.7)" },
 ];
 
 const MyLabel = () => {
@@ -17,10 +27,10 @@ const MyLabel = () => {
       className={s.label}
     >
       <tspan fontSize="34" fontWeight="700" fill="#000">
-        75%
+        {procent}%
       </tspan>
       <tspan x="50%" dy="26" fontSize="16" fontWeight="400" fill="#666">
-        Хорошо
+        {status}
       </tspan>
     </text>
   );

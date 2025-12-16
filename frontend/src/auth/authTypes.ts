@@ -6,10 +6,9 @@ export type LoginData = {
 }
 
 export type RegisterData = {
-    id: number;
-    username: string;
+    name: string;
     email: string;
     phoneNumber: string;
-    password: string | null;
+    password: string;
 }
 

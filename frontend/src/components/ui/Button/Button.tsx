@@ -8,7 +8,9 @@ interface ButtonProps {
   isArrowEnabled?: boolean;
   arrowColor?: string;
   background?: string;
+  className?: string;
   color?: string;
+  size?: "small" | "medium" | "large"
 }
 
 export const Button = ({
@@ -16,11 +18,12 @@ export const Button = ({
   isArrowEnabled = false,
   arrowColor,
   background,
+  className,
   color = "white",
-  
+  size="medium"
 }: ButtonProps) => {
   return (
-    <div className={s.button} style={{ background, color }}>
+    <div className={`${s.button} ${s[size]} ${className}`} style={{ background, color }}>
       {children}
       {isArrowEnabled && (
         <img className={s.arrow} src={arrowColor === 'blue' ? arrowBlue : arrow} alt="Arrow Icon" />

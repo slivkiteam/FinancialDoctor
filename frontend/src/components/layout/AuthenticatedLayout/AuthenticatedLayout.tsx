@@ -20,6 +20,10 @@ export const AuthenticatedLayout = memo(
     }, []);
 
     if (!ctx) return null;
+    
+    if (!ctx.isAuthInitialized) {
+      return null;
+    }
 
     if (!ctx.isAuthenticated && !ctx.isLoggingOut) {
       return <Navigate to={AppRoutes.UNAUTHORIZED} replace />;
