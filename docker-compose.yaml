@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   app:
     environment:
@@ -9,6 +11,7 @@ services:
       - app-network
     depends_on:
       - db
+      - bank-db  # Добавили зависимость от банковской БД
       - minio
       - redis
     env_file:
@@ -27,6 +30,23 @@ services:
     volumes:
       - ./src/main/resources/db-init:/docker-entrypoint-initdb.d
       - db-data:/var/lib/postgresql/data
+
+  # Добавляем новую службу для банковской БД
+  bank-db:
+    image: postgres:15.1-alpine
+    container_name: postgres-bank
+    networks:
+      - app-network
+    environment:
+      POSTGRES_USER: ${BANK_POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${BANK_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${BANK_POSTGRES_DATABASE}
+    volumes:
+      - ./src/main/resources/bank-db-init:/docker-entrypoint-initdb.d  # Опционально, если нужны инициализирующие скрипты
+      - bank-db-data:/var/lib/postgresql/data
+    ports:
+      - '5433:5432'  # Меняем порт на 5433, чтобы не конфликтовать с основной БД
+
   minio:
     image: minio/minio:latest
     container_name: minio
@@ -41,30 +61,23 @@ services:
       - '9000:9000'
     volumes:
       - minio-data:/minio
-#  frontend:
-#    build:
-#      context: ./frontend
-#    ports:
-#      - "5173:5173"
-#      - "3000:3000"
-#    networks:
-#      - practice-net
-#  nginx:
-#    image: nginx:stable-alpine
-#    ports:
-#      - "80:80"
-#    volumes:
-#      - './nginx.conf:/etc/nginx/nginx.conf'
-#    depends_on:
-#      - app
-#      - frontend
-#    networks:
-#      - app-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    networks:
+      - app-network
+    ports:
+      - '6379:6379'
+    volumes:
+      - cache:/data
 
 volumes:
   cache:
     driver: local
   db-data:
+    driver: local
+  bank-db-data:  # Добавили том для банковской БД
     driver: local
   minio-data:
     driver: local

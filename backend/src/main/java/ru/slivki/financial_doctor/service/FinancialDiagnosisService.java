@@ -21,5 +21,3 @@ public interface FinancialDiagnosisService {
                                               String status,
                                               BigDecimal currentValue);
 }
-
-

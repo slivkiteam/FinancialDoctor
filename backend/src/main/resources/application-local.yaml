@@ -10,9 +10,9 @@ spring:
     driver-class-name: org.postgresql.Driver
   bank:
     datasource:
-      url: jdbc:postgresql://${BANK_POSTGRES_HOST:localhost}:${BANK_POSTGRES_PORT:5432}/${BANK_POSTGRES_DATABASE:bank}?currentSchema=${BANK_POSTGRES_SCHEMA:public}
-      username: ${BANK_POSTGRES_USERNAME:bank_user}
-      password: ${BANK_POSTGRES_PASSWORD:bank_password}
+      url: jdbc:postgresql://${BANK_POSTGRES_HOST:localhost}:${BANK_POSTGRES_PORT:5432}/${BANK_POSTGRES_DATABASE:doctor-db-mock-bank}?currentSchema=${BANK_POSTGRES_SCHEMA:public}
+      username: ${BANK_POSTGRES_USERNAME:postgres}
+      password: ${BANK_POSTGRES_PASSWORD:postgres}
       driver-class-name: org.postgresql.Driver
     jpa:
       properties:
@@ -20,12 +20,14 @@ spring:
           dialect: org.hibernate.dialect.PostgreSQLDialect
           hbm2ddl:
             auto: update
+          default_schema: ${BANK_POSTGRES_SCHEMA:public}
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         hbm2ddl:
           auto: update
+        default_schema: ${POSTGRES_SCHEMA:public}
 server:
   port: 8081
 bank:
@@ -40,4 +42,3 @@ security:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-

@@ -58,12 +58,13 @@ public class ApplicationConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(configurer ->
                         configurer.requestMatchers("/api/v1/auth/**").permitAll()
                                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                                .requestMatchers("/connect/**").permitAll()
-                                .requestMatchers("/account-consents/**",
+                                // mock-bank endpoints are internal; user is passed explicitly via userId param
+                                .requestMatchers("/connect/**",
+                                        "/account-consents/**",
                                         "/accounts/**",
                                         "/balances/**",
                                         "/transactions/**",
-                                        "/statements/**").authenticated()
+                                        "/statements/**").permitAll()
                                 .anyRequest().authenticated())
                 //.anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),

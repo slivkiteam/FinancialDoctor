@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import ru.slivki.financial_doctor.bank.dto.AccountListResponse;
 import ru.slivki.financial_doctor.bank.dto.BalanceListResponse;
 import ru.slivki.financial_doctor.bank.dto.ConsentResponse;
@@ -74,80 +71,81 @@ public class OpenBankingMockController {
     }
 
     @PostMapping(value = "/account-consents", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ConsentResponse createConsent(@RequestBody CreateConsentRequest request) {
-        return bankMockService.createConsent(request, currentUserId());
+    public ConsentResponse createConsent(@RequestParam("userId") Long userId,
+                                         @RequestBody CreateConsentRequest request) {
+        return bankMockService.createConsent(request, userId);
     }
 
     @GetMapping("/account-consents/{consentId}")
-    public ConsentResponse getConsent(@PathVariable String consentId) {
-        return bankMockService.getConsent(consentId, currentUserId());
+    public ConsentResponse getConsent(@RequestParam("userId") Long userId,
+                                      @PathVariable String consentId) {
+        return bankMockService.getConsent(consentId, userId);
     }
 
     @GetMapping("/account-consents/{consentId}/retrieval-grant")
-    public ConsentResponse getRetrievalGrant(@PathVariable String consentId) {
-        return bankMockService.getRetrievalGrant(consentId, currentUserId());
+    public ConsentResponse getRetrievalGrant(@RequestParam("userId") Long userId,
+                                             @PathVariable String consentId) {
+        return bankMockService.getRetrievalGrant(consentId, userId);
     }
 
     @DeleteMapping("/account-consents/{consentId}")
-    public ResponseEntity<Void> deleteConsent(@PathVariable String consentId) {
-        bankMockService.deleteConsent(consentId, currentUserId());
+    public ResponseEntity<Void> deleteConsent(@RequestParam("userId") Long userId,
+                                              @PathVariable String consentId) {
+        bankMockService.deleteConsent(consentId, userId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/accounts")
-    public AccountListResponse getAccounts() {
-        return bankMockService.getAccounts(currentUserId());
+    public AccountListResponse getAccounts(@RequestParam("userId") Long userId) {
+        return bankMockService.getAccounts(userId);
     }
 
     @GetMapping("/accounts/{accountId}")
-    public AccountListResponse getAccountById(@PathVariable String accountId) {
-        return bankMockService.getAccount(accountId, currentUserId());
+    public AccountListResponse getAccountById(@RequestParam("userId") Long userId,
+                                              @PathVariable String accountId) {
+        return bankMockService.getAccount(accountId, userId);
     }
 
     @GetMapping("/balances")
-    public BalanceListResponse getBalances() {
-        return bankMockService.getBalances(currentUserId());
+    public BalanceListResponse getBalances(@RequestParam("userId") Long userId) {
+        return bankMockService.getBalances(userId);
     }
 
     @GetMapping("/accounts/{accountId}/balances")
-    public BalanceListResponse getBalancesByAccount(@PathVariable String accountId) {
-        return bankMockService.getBalancesByAccount(accountId, currentUserId());
+    public BalanceListResponse getBalancesByAccount(@RequestParam("userId") Long userId,
+                                                    @PathVariable String accountId) {
+        return bankMockService.getBalancesByAccount(accountId, userId);
     }
 
     @GetMapping("/transactions")
-    public TransactionListResponse getTransactions() {
-        return bankMockService.getTransactions(currentUserId());
+    public TransactionListResponse getTransactions(@RequestParam("userId") Long userId) {
+        return bankMockService.getTransactions(userId);
     }
 
     @GetMapping("/accounts/{accountId}/transactions")
     public TransactionListResponse getTransactionsByAccount(
+            @RequestParam("userId") Long userId,
             @PathVariable String accountId,
             @RequestParam(required = false) String fromBookingDateTime,
             @RequestParam(required = false) String toBookingDateTime) {
-        return bankMockService.getTransactionsByAccount(accountId, fromBookingDateTime, toBookingDateTime, currentUserId());
+        return bankMockService.getTransactionsByAccount(accountId, fromBookingDateTime, toBookingDateTime, userId);
     }
 
     @PostMapping(value = "/statements", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public StatementCreateResponse createStatement(@RequestBody CreateStatementRequest request) {
-        return bankMockService.createStatement(request, currentUserId());
+    public StatementCreateResponse createStatement(@RequestParam("userId") Long userId,
+                                                   @RequestBody CreateStatementRequest request) {
+        return bankMockService.createStatement(request, userId);
     }
 
     @GetMapping("/statements")
-    public StatementListResponse getStatements() {
-        return bankMockService.getStatements(currentUserId());
+    public StatementListResponse getStatements(@RequestParam("userId") Long userId) {
+        return bankMockService.getStatements(userId);
     }
 
     @GetMapping("/statements/{statementId}")
-    public StatementListResponse getStatementById(@PathVariable String statementId) {
-        return bankMockService.getStatement(statementId, currentUserId());
-    }
-
-    private Long currentUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !(authentication.getPrincipal() instanceof JwtEntity jwtEntity)) {
-            throw new AccessDeniedException("User must be authenticated to access mock bank");
-        }
-        return jwtEntity.getId();
+    public StatementListResponse getStatementById(@RequestParam("userId") Long userId,
+                                                  @PathVariable String statementId) {
+        return bankMockService.getStatement(statementId, userId);
     }
 }
 
