@@ -48,12 +48,10 @@ public class FinancialDiagnosisServiceImpl implements FinancialDiagnosisService 
 
         // анализируем последний месяц
         LocalDate today = LocalDate.now();
-        LocalDateTime periodStart = today.minusMonths(1).atStartOfDay();
-        LocalDateTime periodEnd = today.plusDays(1).atStartOfDay();
-
+        LocalDateTime periodStart = today.minusMonths(10000).atStartOfDay();
+        LocalDateTime periodEnd = today.plusDays(1000000).atStartOfDay();
         // Получаем транзакции из банка через REST API
         List<Transaction> transactions = bankClient.getTransactions(userId, periodStart, periodEnd);
-
         BigDecimal totalIncome = BigDecimal.ZERO;
         BigDecimal totalExpenses = BigDecimal.ZERO;
         BigDecimal creditPayments = BigDecimal.ZERO;
@@ -182,16 +180,25 @@ public class FinancialDiagnosisServiceImpl implements FinancialDiagnosisService 
             return 50;
         }
         if (totalExpenses == null) {
+            return 85;
+        }
+        BigDecimal ratio = safeDivide(totalExpenses, totalIncome); // доля расходов от дохода
+
+        // Более чувствительная шкала:
+        // до 50% расходов от дохода — почти идеальная картина
+        if (ratio.compareTo(new BigDecimal("0.50")) <= 0) {
+            return 95;
+        }
+        // 50–70% — хорошая ситуация
+        if (ratio.compareTo(new BigDecimal("0.70")) <= 0) {
             return 80;
         }
-        BigDecimal ratio = safeDivide(totalExpenses, totalIncome);
-        if (ratio.compareTo(new BigDecimal("0.6")) <= 0) {
-            return 90;
+        // 70–85% — заметно высокие повседневные траты
+        if (ratio.compareTo(new BigDecimal("0.85")) <= 0) {
+            return 65;
         }
-        if (ratio.compareTo(new BigDecimal("0.8")) <= 0) {
-            return 70;
-        }
-        return 50;
+        // >85% — тревожный сигнал
+        return 45;
     }
 
     private int calculateSavingScore(final BigDecimal totalIncome, final BigDecimal totalExpenses) {
@@ -199,20 +206,29 @@ public class FinancialDiagnosisServiceImpl implements FinancialDiagnosisService 
             return 50;
         }
         if (totalExpenses == null) {
-            return 80;
+            return 85;
         }
         BigDecimal savings = totalIncome.subtract(totalExpenses);
-        if (savings.signum() <= 0) {
-            return 40;
+        if (savings.signum() < 0) {
+            // тратит больше, чем зарабатывает
+            return 30;
         }
-        BigDecimal savingRate = safeDivide(savings, totalIncome);
-        if (savingRate.compareTo(new BigDecimal("0.2")) >= 0) {
-            return 90;
+        BigDecimal savingRate = safeDivide(savings, totalIncome); // доля сбережений
+
+        // ≥25% сбережений — очень высокий уровень
+        if (savingRate.compareTo(new BigDecimal("0.25")) >= 0) {
+            return 95;
         }
-        if (savingRate.compareTo(new BigDecimal("0.1")) >= 0) {
-            return 70;
+        // 15–25% — хороший уровень
+        if (savingRate.compareTo(new BigDecimal("0.15")) >= 0) {
+            return 80;
         }
-        return 50;
+        // 5–15% — умеренный уровень, чувствителен к повседневным тратам
+        if (savingRate.compareTo(new BigDecimal("0.05")) >= 0) {
+            return 60;
+        }
+        // <5% — почти не копит
+        return 40;
     }
 
     private String buildDiagnosisType(final BigDecimal totalIncome,
@@ -231,49 +247,71 @@ public class FinancialDiagnosisServiceImpl implements FinancialDiagnosisService 
         BigDecimal cashRate = safeDivide(cashWithdrawals, totalExpenses);
         BigDecimal investRateFromSavings = safeDivide(investmentOut, totalIncome.max(BigDecimal.ONE));
 
-        if (expenseRate.compareTo(new BigDecimal("0.90")) >= 0 && savingRate.compareTo(new BigDecimal("0.05")) < 0) {
+        // 1. Очень высокий уровень повседневных трат:
+        // >85% дохода уходит в расходы и почти нет сбережений
+        if (expenseRate.compareTo(new BigDecimal("0.85")) >= 0
+                && savingRate.compareTo(new BigDecimal("0.05")) < 0) {
             return "РАССЕЯННЫЙ СПЕНДЕР";
         }
 
-        if (savingRate.compareTo(new BigDecimal("0.15")) >= 0 && netCashFlow.signum() > 0 && creditRate.compareTo(new BigDecimal("0.10")) < 0) {
+        // 2. Здоровый бухгалтер:
+        // хотя бы 15% дохода откладывается, есть положительный нетто-поток,
+        // и на кредиты уходит не более 15% дохода
+        if (savingRate.compareTo(new BigDecimal("0.15")) >= 0
+                && netCashFlow.signum() > 0
+                && creditRate.compareTo(new BigDecimal("0.15")) < 0
+                && expenseRate.compareTo(new BigDecimal("0.80")) <= 0) {
             return "ЗДОРОВЫЙ БУХГАЛТЕР";
         }
 
-        if (creditRate.compareTo(new BigDecimal("0.25")) >= 0) {
+        // 3. Кредитный заложник: уже заметно, если ≥20% дохода уходит на кредиты
+        if (creditRate.compareTo(new BigDecimal("0.20")) >= 0) {
             return "КРЕДИТНЫЙ ЗАЛОЖНИК";
         }
 
-        if (totalIncome.compareTo(new BigDecimal("50000")) < 0 && transactionsCount > 30 && savingRate.compareTo(new BigDecimal("0.05")) < 0) {
+        // 4. Бюджетный студент:
+        // относительно небольшой доход и много мелких повседневных транзакций,
+        // при этом почти нет сбережений
+        if (totalIncome.compareTo(new BigDecimal("80000")) < 0
+                && transactionsCount >= 20
+                && savingRate.compareTo(new BigDecimal("0.10")) < 0) {
             return "БЮДЖЕТНЫЙ СТУДЕНТ";
         }
 
-        if (transactionsCount <= 2 && netCashFlow.signum() <= 0) {
-            return "ДЕНЕЖНЫЙ ЗАТВОРНИК";
-        }
-
-        if (savingRate.compareTo(new BigDecimal("0.15")) >= 0 && investRateFromSavings.compareTo(new BigDecimal("0.01")) < 0) {
+        // 5. Консервативный вкладчик:
+        // копит ≥15% дохода, но почти не инвестирует
+        if (savingRate.compareTo(new BigDecimal("0.15")) >= 0
+                && investRateFromSavings.compareTo(new BigDecimal("0.03")) < 0) {
             return "КОНСЕРВАТИВНЫЙ ВКЛАДЧИК";
         }
 
+        // 6. Рисковый игрок: половина и больше от сбережений уходит в риск/инвестиции
         if (investRateFromSavings.compareTo(new BigDecimal("0.50")) >= 0) {
             return "РИСКОВЫЙ ИГРОК";
         }
 
-        if (cashRate.compareTo(new BigDecimal("0.80")) >= 0 || cashPaymentsCount >= (int) Math.max(5, transactionsCount * 0.8)) {
+        // 7. Цифровой отшельник: доля кэша в расходах ≥70% или большинство платежей наличные
+        if (cashRate.compareTo(new BigDecimal("0.70")) >= 0
+                || cashPaymentsCount >= (int) Math.max(4, transactionsCount * 0.7)) {
             return "ЦИФРОВОЙ ОТШЕЛЬНИК";
         }
 
-        if (savingRate.compareTo(new BigDecimal("0.40")) >= 0) {
+        // 8. Финансовый аскет: сбережения ≥30% дохода
+        if (savingRate.compareTo(new BigDecimal("0.30")) >= 0) {
             return "ФИНАНСОВЫЙ АСКЕТ";
         }
 
-        if (transactionsCount < 5 && netCashFlow.signum() <= 0) {
+        // 9. Неровный поток: мало операций, но деньги не накапливаются
+        if (transactionsCount < 8 && netCashFlow.signum() <= 0) {
             return "НЕРАВНОМЕРНЫЙ ПОТОК";
         }
 
+        // 10. Неустойчивый планировщик: и по тратам, и по сбережениям слабые оценки
         if (spendingScore < 60 && savingScore < 60) {
             return "НЕУСТОЙЧИВЫЙ ПЛАНИРОВЩИК";
         }
+
+        // По умолчанию считаем, что пользователь ближе к "здоровому бухгалтеру"
         return "ЗДОРОВЫЙ БУХГАЛТЕР";
     }
 
