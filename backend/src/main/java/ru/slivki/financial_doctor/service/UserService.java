@@ -1,6 +1,7 @@
 package ru.slivki.financial_doctor.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import ru.slivki.financial_doctor.exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
 import ru.slivki.financial_doctor.model.User;
@@ -23,6 +24,18 @@ public class UserService {
         user.setPassword(passwordEncode);
         return userRepository.save(user);
     }
+
+    @Transactional
+    public User update(Long id, User user) {
+        var userCur = userRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("User with id %s not found".formatted(id))
+        );
+        userCur.setName(user.getName());
+        var passwordEncode = passwordEncoder.encode(user.getPassword());
+        user.setPassword(passwordEncode);
+        return userRepository.save(userCur);
+    }
+
 
     public void confirmEmail(String confirmationToken) {
         User user = userRepository.findByConfirmationToken(confirmationToken)

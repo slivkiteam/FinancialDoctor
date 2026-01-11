@@ -13,10 +13,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.Map;
 
 /**
- * Separate datasource for the mock bank (PostgreSQL).
+ * Separate datasource for the mock bank (H2).
  */
 @Configuration
 @EnableTransactionManagement
@@ -33,12 +32,6 @@ public class BankDataSourceConfig {
         return new DataSourceProperties();
     }
 
-    @Bean(name = "bankJpaPropertiesMap")
-    @ConfigurationProperties("spring.bank.jpa.properties")
-    public Map<String, Object> bankJpaProperties() {
-        return Map.of();
-    }
-
     @Bean
     public DataSource bankDataSource(@Qualifier("bankDataSourceProperties") DataSourceProperties properties) {
         return properties.initializeDataSourceBuilder().build();
@@ -47,13 +40,11 @@ public class BankDataSourceConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean bankEntityManagerFactory(
             EntityManagerFactoryBuilder builder,
-            @Qualifier("bankDataSource") DataSource dataSource,
-            @Qualifier("bankJpaPropertiesMap") Map<String, Object> bankJpaProperties) {
+            @Qualifier("bankDataSource") DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
                 .packages("ru.slivki.financial_doctor.bank.model")
                 .persistenceUnit("bank")
-                .properties(bankJpaProperties)
                 .build();
     }
 

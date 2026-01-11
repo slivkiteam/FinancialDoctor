@@ -4,7 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,17 +15,12 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "bank_consents", indexes = {
-        @Index(name = "idx_bank_consent_user", columnList = "user_id")
-})
+@Table(name = "bank_consents")
 public class BankConsent {
 
     @Id
     @Column(name = "consent_id", nullable = false, length = 64)
     private String consentId;
-
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
 
     @ElementCollection
     @Column(name = "permission", nullable = false)
@@ -44,6 +38,7 @@ public class BankConsent {
     @Column(name = "status", nullable = false)
     private String status = "Authorized";
 }
+
 
 
 

@@ -21,10 +21,11 @@ public class BankDataProvider {
     private final BankTransactionRepository bankTransactionRepository;
 
     /**
-     * Returns transactions mapped from bank DB into in-memory Transaction objects for the given user.
+     * Returns transactions mapped from bank DB into in-memory Transaction objects.
+     * Currently not filtered by user because mock-bank data is not linked to users.
      */
-    public List<Transaction> loadTransactionsFromBank(Long userId) {
-        return bankTransactionRepository.findByUserId(userId)
+    public List<Transaction> loadTransactionsFromBank() {
+        return bankTransactionRepository.findAll()
                 .stream()
                 .map(this::toTransaction)
                 .toList();
@@ -49,6 +50,7 @@ public class BankDataProvider {
         return t;
     }
 }
+
 
 
 

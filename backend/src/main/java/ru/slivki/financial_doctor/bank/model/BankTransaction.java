@@ -15,8 +15,7 @@ import java.time.OffsetDateTime;
 @Setter
 @Entity
 @Table(name = "bank_transactions", indexes = {
-        @Index(name = "idx_bank_txn_account", columnList = "account_id"),
-        @Index(name = "idx_bank_txn_user", columnList = "user_id")
+        @Index(name = "idx_bank_txn_account", columnList = "account_id")
 })
 public class BankTransaction {
 
@@ -26,9 +25,6 @@ public class BankTransaction {
 
     @Column(name = "account_id", nullable = false, length = 64)
     private String accountId;
-
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
 
     @Column(name = "transaction_date_time", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime transactionDateTime;
@@ -48,6 +44,7 @@ public class BankTransaction {
     @Column(name = "transaction_information")
     private String transactionInformation;
 }
+
 
 
 

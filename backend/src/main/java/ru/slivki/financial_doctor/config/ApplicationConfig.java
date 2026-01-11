@@ -3,6 +3,7 @@ package ru.slivki.financial_doctor.config;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -58,13 +59,14 @@ public class ApplicationConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(configurer ->
                         configurer.requestMatchers("/api/v1/auth/**").permitAll()
                                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                                // mock-bank endpoints are internal; user is passed explicitly via userId param
+                                // Open-banking mock endpoints exposed for integration tests
                                 .requestMatchers("/connect/**",
                                         "/account-consents/**",
                                         "/accounts/**",
                                         "/balances/**",
                                         "/transactions/**",
-                                        "/statements/**").permitAll()
+                                        "/statements/**")
+                                .permitAll()
                                 .anyRequest().authenticated())
                 //.anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),

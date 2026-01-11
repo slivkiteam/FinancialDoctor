@@ -20,7 +20,6 @@ import ru.slivki.financial_doctor.bank.dto.StatementCreateResponse;
 import ru.slivki.financial_doctor.bank.dto.StatementListResponse;
 import ru.slivki.financial_doctor.bank.dto.TransactionListResponse;
 import ru.slivki.financial_doctor.bank.service.BankMockService;
-import ru.slivki.financial_doctor.web.security.JwtEntity;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -28,7 +27,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Mock bank implementation backed by its own PostgreSQL database.
+ * Mock bank implementation that persists data into a dedicated H2 database.
  * Endpoints match the Accounts Sandbox v1.3 Postman collection.
  */
 @RestController
@@ -71,81 +70,72 @@ public class OpenBankingMockController {
     }
 
     @PostMapping(value = "/account-consents", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ConsentResponse createConsent(@RequestParam("userId") Long userId,
-                                         @RequestBody CreateConsentRequest request) {
-        return bankMockService.createConsent(request, userId);
+    public ConsentResponse createConsent(@RequestBody CreateConsentRequest request) {
+        return bankMockService.createConsent(request);
     }
 
     @GetMapping("/account-consents/{consentId}")
-    public ConsentResponse getConsent(@RequestParam("userId") Long userId,
-                                      @PathVariable String consentId) {
-        return bankMockService.getConsent(consentId, userId);
+    public ConsentResponse getConsent(@PathVariable String consentId) {
+        return bankMockService.getConsent(consentId);
     }
 
     @GetMapping("/account-consents/{consentId}/retrieval-grant")
-    public ConsentResponse getRetrievalGrant(@RequestParam("userId") Long userId,
-                                             @PathVariable String consentId) {
-        return bankMockService.getRetrievalGrant(consentId, userId);
+    public ConsentResponse getRetrievalGrant(@PathVariable String consentId) {
+        return bankMockService.getRetrievalGrant(consentId);
     }
 
     @DeleteMapping("/account-consents/{consentId}")
-    public ResponseEntity<Void> deleteConsent(@RequestParam("userId") Long userId,
-                                              @PathVariable String consentId) {
-        bankMockService.deleteConsent(consentId, userId);
+    public ResponseEntity<Void> deleteConsent(@PathVariable String consentId) {
+        bankMockService.deleteConsent(consentId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/accounts")
-    public AccountListResponse getAccounts(@RequestParam("userId") Long userId) {
-        return bankMockService.getAccounts(userId);
+    public AccountListResponse getAccounts() {
+        return bankMockService.getAccounts();
     }
 
     @GetMapping("/accounts/{accountId}")
-    public AccountListResponse getAccountById(@RequestParam("userId") Long userId,
-                                              @PathVariable String accountId) {
-        return bankMockService.getAccount(accountId, userId);
+    public AccountListResponse getAccountById(@PathVariable String accountId) {
+        return bankMockService.getAccount(accountId);
     }
 
     @GetMapping("/balances")
-    public BalanceListResponse getBalances(@RequestParam("userId") Long userId) {
-        return bankMockService.getBalances(userId);
+    public BalanceListResponse getBalances() {
+        return bankMockService.getBalances();
     }
 
     @GetMapping("/accounts/{accountId}/balances")
-    public BalanceListResponse getBalancesByAccount(@RequestParam("userId") Long userId,
-                                                    @PathVariable String accountId) {
-        return bankMockService.getBalancesByAccount(accountId, userId);
+    public BalanceListResponse getBalancesByAccount(@PathVariable String accountId) {
+        return bankMockService.getBalancesByAccount(accountId);
     }
 
     @GetMapping("/transactions")
-    public TransactionListResponse getTransactions(@RequestParam("userId") Long userId) {
-        return bankMockService.getTransactions(userId);
+    public TransactionListResponse getTransactions() {
+        return bankMockService.getTransactions();
     }
 
     @GetMapping("/accounts/{accountId}/transactions")
     public TransactionListResponse getTransactionsByAccount(
-            @RequestParam("userId") Long userId,
             @PathVariable String accountId,
             @RequestParam(required = false) String fromBookingDateTime,
             @RequestParam(required = false) String toBookingDateTime) {
-        return bankMockService.getTransactionsByAccount(accountId, fromBookingDateTime, toBookingDateTime, userId);
+        return bankMockService.getTransactionsByAccount(accountId, fromBookingDateTime, toBookingDateTime);
     }
 
     @PostMapping(value = "/statements", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public StatementCreateResponse createStatement(@RequestParam("userId") Long userId,
-                                                   @RequestBody CreateStatementRequest request) {
-        return bankMockService.createStatement(request, userId);
+    public StatementCreateResponse createStatement(@RequestBody CreateStatementRequest request) {
+        return bankMockService.createStatement(request);
     }
 
     @GetMapping("/statements")
-    public StatementListResponse getStatements(@RequestParam("userId") Long userId) {
-        return bankMockService.getStatements(userId);
+    public StatementListResponse getStatements() {
+        return bankMockService.getStatements();
     }
 
     @GetMapping("/statements/{statementId}")
-    public StatementListResponse getStatementById(@RequestParam("userId") Long userId,
-                                                  @PathVariable String statementId) {
-        return bankMockService.getStatement(statementId, userId);
+    public StatementListResponse getStatementById(@PathVariable String statementId) {
+        return bankMockService.getStatement(statementId);
     }
 }
 

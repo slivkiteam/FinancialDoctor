@@ -10,24 +10,22 @@ spring:
     driver-class-name: org.postgresql.Driver
   bank:
     datasource:
-      url: jdbc:postgresql://${BANK_POSTGRES_HOST:bank-db}:${BANK_POSTGRES_PORT:5432}/${BANK_POSTGRES_DATABASE:doctor-db-mock-bank}?currentSchema=${BANK_POSTGRES_SCHEMA:public}
-      username: ${BANK_POSTGRES_USERNAME:postgres}
-      password: ${BANK_POSTGRES_PASSWORD:postgres}
-      driver-class-name: org.postgresql.Driver
+      url: jdbc:h2:file:./data/bankdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password: ""
+      driver-class-name: org.h2.Driver
     jpa:
       properties:
         hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
+          dialect: org.hibernate.dialect.H2Dialect
           hbm2ddl:
             auto: update
-          default_schema: ${BANK_POSTGRES_SCHEMA:public}
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         hbm2ddl:
           auto: update
-        default_schema: ${POSTGRES_SCHEMA:public}
 server:
   port: 8081
 bank:
@@ -38,7 +36,6 @@ security:
     secret: ${JWT_SECRET:change-me-to-a-long-random-secret-key}
     access: ${JWT_ACCESS_HOURS:12}
     refresh: ${JWT_REFRESH_DAYS:30}
-
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
