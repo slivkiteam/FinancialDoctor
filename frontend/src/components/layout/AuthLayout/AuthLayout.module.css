@@ -87,7 +87,7 @@
 
 @media (max-width: 700px) {
   .registerPage {
-    height: 100%;
+    min-height: 100%;
     padding: 10px;
     overflow: scroll;
   }

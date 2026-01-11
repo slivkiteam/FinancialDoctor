@@ -8,6 +8,7 @@ export interface RecommendationCardProps {
   image: string;
   priority: string;
   description: string;
+  deadline: string;
   id?: number;
 }
 
@@ -17,6 +18,7 @@ export const RecommendationCard = ({
   description,
   priority,
   id,
+  deadline,
 }: RecommendationCardProps) => {
   const location = useLocation();
   const isStepPage = location.pathname.startsWith("/step/");
@@ -34,7 +36,7 @@ export const RecommendationCard = ({
         </div>
         <p className={s.description}>{description}</p>
         <div className={s.footer}>
-          <p className={s.date}>01.01.2000</p>
+          <p className={s.date}>{deadline}</p>
           {!isStepPage && (
             <Button>
               <Link to={`/step/${id}`}>Приступить</Link>

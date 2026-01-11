@@ -1,6 +1,7 @@
 import { AppRoutes } from "@/services/router/routes";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { AuthContext } from "./AuthContext";
 import { AUTH_ROUTES } from "./authRoutes";
 import type { LoginData, RegisterData, UserData } from "./authTypes";
@@ -58,6 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [refreshAccessToken, refreshToken]);
 
   async function register(registerData: RegisterData): Promise<void> {
+    try {
     const response = await fetch(AUTH_ROUTES.REGISTER, {
       method: "POST",
       headers: {
@@ -67,13 +69,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     if (!response.ok) {
+      toast.error("Ошибка при регистрации");
       throw new Error("Registration failed");
     }
     login(registerData.email, registerData.password);
     return await response.json();
+    } catch (error) {
+      toast.error("Ошибка при регистрации");
+      throw error;
+    }
   }
 
   async function login(email: string, password: string): Promise<LoginData> {
+    try {
     const response = await fetch(AUTH_ROUTES.LOGIN, {
       method: "POST",
       headers: {
@@ -97,8 +105,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthenticated(true);
     localStorage.setItem("refreshToken", data.refreshToken);
     setUser({ username: data.username, id: data.id });
+    toast.success("Успешный вход в систему");
     navigate(AppRoutes.ANALYTICS);
-    return data;
+    return data;} catch (error) {
+      toast.error("Ошибка при входе в систему");
+      throw error;
+    }
   }
 
   function logout() {

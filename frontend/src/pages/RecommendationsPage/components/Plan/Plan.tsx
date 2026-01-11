@@ -5,32 +5,37 @@ import pig from "@assets/analytics-page/plan/piggy-bank.svg";
 import {
   RecommendationCard,
   type RecommendationCardProps,
-} from "../../../../components/ui/RecommendationCard/RecommendationCard";
+} from "@/components/ui/RecommendationCard/RecommendationCard";
 
 export const Plan = () => {
   const data = [
     {
       id: 1,
       image: pig,
-      title: "Рекомендация 1",
+      title: "Заплати сначала себе",
       priority: "Высокий",
-      description: "Описание рекомендации 1",
+      description:
+        "Настройте автоматический перевод 10% от зарплаты на накопительный счёт",
+      deadline: "До 25 декабря",
     },
     {
       id: 2,
       image: meat,
-      title: "Рекомендация 2",
+      title: "Развлечения под контролем",
       priority: "Средний",
-      description: "Описание рекомендации 2",
+      description: 'Установите еженедельный лимит на категорию "Развлечения"',
       descriptionHelp: "Дополнительная информация 2",
+      deadline: "До 30 декабря",
     },
     {
       id: 3,
       image: hand,
-      title: "Рекомендация 3",
+      title: "Правило 24 часов",
       priority: "Низкий",
-      description: "Описание рекомендации 3",
+      description:
+        "Если планируете купить что-то дороже 2000₽ вне плана — давайте себе 24 часа на обдумывание",
       descriptionHelp: "Дополнительная информация 3",
+      deadline: "До 5 января",
     },
   ];
 

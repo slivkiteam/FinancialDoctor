@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import { AuthProvider } from "./auth/AuthProvider.tsx";
+import { Toaster} from 'sonner'
 import "./index.css";
 
 const queryClient = new QueryClient();
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <App />
+          <Toaster />
         </AuthProvider>
       </QueryClientProvider>
     </BrowserRouter>
